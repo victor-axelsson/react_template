@@ -33,7 +33,7 @@ class Home extends Component {
         ); 
 
         if(this.props.isLoggedIn){
-            mainContent = (<p>Hello there { this.state.user.username }</p>); 
+            mainContent = (<p>Hello there { this.props.user.username }</p>); 
         }
 
         return (

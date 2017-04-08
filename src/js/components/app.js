@@ -7,6 +7,7 @@ import Footer from './footer/footer'
 import { getRoute } from './router'
 import { CONSTANTS } from '../core/constants'
 import { ENV } from 'core/env'
+import { getData } from '../core/persistentStorage'
 
 const store = createStore(MyApp);
 if (!ENV.DEV) {
@@ -22,6 +23,17 @@ export default class App extends React.Component {
             this.forceUpdate();
             this._onChange();
         });
+
+        //Load user from storage
+        var user = getData("user");
+        if(!!user){
+            user = JSON.parse(user); 
+            store.dispatch({
+                type: CONSTANTS.LOGIN,
+                payload: user
+            });
+        } 
+
     }
 
     _onChange() {
@@ -78,8 +90,4 @@ export default class App extends React.Component {
             </Provider>
         );
     }
-}
-
-const styles = {
-
 }

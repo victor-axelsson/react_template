@@ -8,7 +8,6 @@ export function getRoute(route) {
     if (route.name == CONSTANTS.HOME) {
         return (<Home {...route.passProps}/>);
     }else if(route.name == CONSTANTS.LOGIN) {
-        console.log("It was"); 
         return (<Login {...route.passProps}/>);
     } else{
         //Default route

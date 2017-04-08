@@ -49,7 +49,7 @@ class Login extends Component {
             this.setState({errors: false, isLoading: true}); 
 
             this.props.login(this.state.form, () => {
-                this.setState({isLoading: false}); 
+                this.setState({isLoading: false});
             }); 
         }else{
             this.setState({errors: true, isLoading: false}); 

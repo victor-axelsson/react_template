@@ -9,6 +9,8 @@ export default function userReducer(state = initialState.user, action) {
                 isLoggedIn: true,
                 user: action.payload
             });
+
+            console.log(newState); 
             return newState;
 
         case CONSTANTS.LOGOUT:

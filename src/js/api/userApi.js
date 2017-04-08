@@ -10,32 +10,29 @@ import { delData, saveData } from 'core/persistentStorage'
 export function logoutUser(dispatch) {
     console.log('# logout #');
 
-    let payload = {}; 
-    post('/user/logout', payload, (err, res) => {
-        if (!err) {
+    //Clear the user from the persistent storage
+    delData('user');
 
-            //Clear the user from the permanent storage
-            delData('user');
-
-            //Dispatch logout event
-            dispatch({
-                type: CONSTANTS.LOGOUT
-            });
-        }
-
-        //Go back to the home page
-        dispatch({
-            type: CONSTANTS.NAVIGATE_TO_PAGE,
-            payload: {
-                name: CONSTANTS.HOME
-            }
-        });
+    //Dispatch logout event
+    dispatch({
+        type: CONSTANTS.LOGOUT
     });
+
+    //Go back to the home page
+    dispatch({
+        type: CONSTANTS.NAVIGATE_TO_PAGE, 
+        payload: {
+            name: CONSTANTS.LOGIN,
+            title: "Home"
+        }
+    }); 
 }
 
 /**
-* @author Eduard Hallberg
+* @author Victor Axelsson
 * @param dispatch The dispatcher that will tell the store that we have new stuff
+* @param payload the user credentials
+* @param callback Optional callback when the request is done 
 * Login user
 */
 export function loginUser(dispatch, payload, callback) {
@@ -46,16 +43,25 @@ export function loginUser(dispatch, payload, callback) {
 
             // Check if we actually got a user back.
             if (res.user) {
-                saveData('user', res.user);
+                saveData('user', JSON.stringify(res.user));
 
                 dispatch({
                     type: CONSTANTS.LOGIN,
-                    payload: user
+                    payload: res.user
                 });
-            }else{
-                console.log("We should have gotten a user back"); 
+
+                //Go back to the home page
+                dispatch({
+                    type: CONSTANTS.NAVIGATE_TO_PAGE, 
+                    payload: {
+                        name: CONSTANTS.HOME,
+                        title: "Home"
+                    }
+                }); 
             }
         }
+
+
         if (!!callback) {
             callback(err, res);
         }

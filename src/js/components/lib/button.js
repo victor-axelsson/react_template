@@ -3,6 +3,7 @@ import { CONSTANTS } from 'core/constants'
 import { COLORS } from 'core/colors'
 import { connect } from 'react-redux'
 import styles from './button.css'
+
 class Button extends Component {
 
     constructor(props, context) {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { CONSTANTS } from 'core/constants'
 import styles from './bar.css'
 import { COLORS } from 'core/colors'
+import Logout from '../lib/logout'
 
 class Bar extends Component {
 
@@ -18,10 +19,24 @@ class Bar extends Component {
     componentDidMount() {}
 
     render() {
+        var nameLabel = (<div></div>); 
+
+        if(this.props.isLoggedIn){
+            nameLabel = (
+                <div>
+                    <p style={{color: '#fff'}}>Hello there { this.props.user.username }</p>
+                    <Logout />
+                </div>
+            ); 
+        }
+
         return (
             <div className={ styles.container }>
                 <div className={ styles.innerContainer }>
                     <h1>{this.props.title}</h1>
+                </div>
+                <div style={{position: 'absolute', right: 10, top: 5}}>
+                    {nameLabel}
                 </div>
             </div>
         );
@@ -30,7 +45,9 @@ class Bar extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        title: state.navigation.route.title
+        title: state.navigation.route.title,
+        isLoggedIn: state.user.isLoggedIn,
+        user: state.user.user
     };
 }
 

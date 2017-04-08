@@ -104,9 +104,7 @@ const request = (url, method, body, callback, token) => {
 * Get the http headers
 */
 var getHeaders = function() {
-    const magcard = getData('magcard');
     var headers = new Headers();
-    headers.append('magcard', magcard);
     headers.append('Accept', 'application/json');
     headers.append('Content-Type', 'application/json');
     return headers;
@@ -117,20 +115,7 @@ var getHeaders = function() {
 * performs a HTTP Get
 */
 export function get(url, callback, skipParsing) {
-
     return request(url, 'GET', null, callback, null);
-/*let headers = getHeaders();
-fetch(buildURI(url), {
-    method: 'get',
-    headers: headers,
-}).then(function(response) {
-    return response.json();
-}).then(function(json) {
-    // console.log(json); 
-    callback(null, json);
-}).catch(function(err) {
-    callback(err, null);
-});*/
 }
 
 /**
@@ -175,7 +160,7 @@ export function post(url, payload, callback) {
 */
 export function del(url, callback) {
     fetch(buildURI(url), {
-        method: 'delete', // <- not 100% on this one, could be delete also
+        method: 'delete',
         headers: getHeaders()
     }).then(function(response) {
         return response.json();

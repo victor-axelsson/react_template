@@ -8,7 +8,7 @@ export default function navigationReducer(state = initialState.navigation, actio
             console.log(action.payload); 
             var newState = Object.assign({}, state, {
                 route: action.payload
-            });
+            }); 
             return newState;
 
         default:
